@@ -9,6 +9,7 @@ import io.restassured.specification.ResponseSpecification;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import static com.spotify.oauth2.api.TokenManager.getToken;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -22,7 +23,7 @@ public class DemoTest {
         RequestSpecBuilder requestSpecBuilder= new RequestSpecBuilder().
                 setBaseUri("https://api.spotify.com")
                 .setBasePath("/v1")
-                .addHeader("Authorization","Bearer "+access_token)
+                .addHeader("Authorization","Bearer "+getToken())
                 .setContentType(ContentType.JSON)
                 .log(LogDetail.ALL);
         requestSpecification=requestSpecBuilder.build();
@@ -43,12 +44,26 @@ public class DemoTest {
 
         given(requestSpecification)
                 .body(payload)
-                .when().post("/users/31zghzhjvfg3ao3x6px4wogw6sc4/playlists")
+        .when().post("/users/31zghzhjvfg3ao3x6px4wogw6sc4/playlists")
                 .then().spec(responseSpecification)
                 .assertThat()
                 .statusCode(201)
-                .body("name",equalTo("New Playlist"),
+        .body("name",equalTo("New Playlist"),
                         "description",equalTo("New playlist description"),
                         "public",equalTo(false));
+    }
+
+    @Test
+    public void getPlaylistItems(){
+        given(requestSpecification)
+                .when().get("/playlists/1xBweQZ4eFRNsgs85fMAeT/tracks")
+                .then().statusCode(200);
+
+    }
+    @Test
+    public void getSearch(){
+        given(requestSpecification)
+                .when().get("/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=playlist")
+                .then().statusCode(200);
     }
 }

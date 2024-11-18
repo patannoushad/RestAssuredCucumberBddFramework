@@ -6,8 +6,7 @@ import utils.ConfigLoader;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
-import static com.spotify.oauth2.api.Route.PLAYLISTS;
-import static com.spotify.oauth2.api.Route.USERS;
+import static com.spotify.oauth2.api.Route.*;
 import static com.spotify.oauth2.api.TokenManager.getToken;
 
 public class PlaylistApi {

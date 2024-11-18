@@ -9,7 +9,7 @@ import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 
-import static com.spotify.oauth2.api.Route.BASE_PATH;
+import static com.spotify.oauth2.api.Route.*;
 
 public class SpecBuilder {
 
@@ -17,7 +17,7 @@ public class SpecBuilder {
     public static RequestSpecification getRequestSpec(){
 
         return new RequestSpecBuilder().
-                setBaseUri(PropertyManager.getProperty("BASE_URI")).
+                setBaseUri(BASE_URI).
 //                setBaseUri(System.getProperty("BASE_URI")).
 //                setBaseUri("https://api.spotify.com").
                 setBasePath(BASE_PATH).
@@ -29,7 +29,7 @@ public class SpecBuilder {
 
     public static RequestSpecification getAccountRequestSpec(){
         return new RequestSpecBuilder().
-                setBaseUri(PropertyManager.getProperty("ACCOUNT_BASE_URI")).
+                setBaseUri(ACCOUNT_BASE_URI).
 //                setBaseUri(System.getProperty("ACCOUNT_BASE_URI")).
 //                setBaseUri("https://accounts.spotify.com").
                 setContentType(ContentType.URLENC).
