@@ -3,6 +3,7 @@ package com.spotify.oauth2.api;
 public class Route {
     public static final String BASE_URI = "https://api.spotify.com";
     public static final String ACCOUNT_BASE_URI = "https://accounts.spotify.com";
+
     public static final String BASE_PATH = "/v1";
     public static final String API = "/api";
     public static final String TOKEN = "/token";
