@@ -4,6 +4,8 @@ import com.spotify.oauth2.api.StatusCode;
 import com.spotify.oauth2.api.applicationApi.PlaylistApi;
 import com.spotify.oauth2.pojo.Error;
 import com.spotify.oauth2.pojo.Playlist;
+
+import org.testng.Assert;
 import utils.DataLoader;
 import io.qameta.allure.*;
 import io.restassured.response.Response;
@@ -18,12 +20,6 @@ import static org.hamcrest.Matchers.equalTo;
 @Feature("Playlist API")
 public class PlaylistTests extends BaseTest {
 
-    @Story("Create a playlist story")
-    @Link("https://example.org")
-    @Link(name = "allure", type = "mylink")
-    @TmsLink("12345")
-    @Issue("1234567")
-    @Description("this is the description")
     @Test(description = "should be able to create a playlist")
     public void ShouldBeAbleToCreateAPlaylist(){
         //1. post new request
@@ -39,6 +35,7 @@ public class PlaylistTests extends BaseTest {
         Playlist requestPlaylist = playlistBuilder("Updated Playlist Name", "Updated playlist description", true);
         Response response = PlaylistApi.get(DataLoader.getInstance().getGetPlaylistId());
         assertStatusCode(response.statusCode(), StatusCode.CODE_200);
+        Assert.assertEquals(response.statusCode(),StatusCode.CODE_200.code);
         System.out.println("response : ------------------------------------   "+response.as(Playlist.class));
         System.out.println("request : --------------------------------------  "+requestPlaylist);
         assertPlaylistEqual(response.as(Playlist.class), requestPlaylist);
@@ -101,4 +98,6 @@ public class PlaylistTests extends BaseTest {
         assertThat(responseErr.getError().getStatus(), equalTo(statusCode.code));
         assertThat(responseErr.getError().getMessage(), equalTo(statusCode.msg));
     }
+
+
 }
