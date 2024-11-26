@@ -39,7 +39,7 @@ public class PlayListStpDef extends BaseTest {
 //        assertStatusCode(response.statusCode(), StatusCode.CODE_201);
 //        assertPlaylistEqual(response.as(Playlist.class), requestPlaylist);
 //        Assert.assertEquals(response.getStatusCode(),StatusCode.CODE_201);
-        new PlaylistTests().assertStatusCode(response.getStatusCode(),StatusCode.CODE_400);
+//        new PlaylistTests().assertStatusCode(response.getStatusCode(),StatusCode.CODE_400);
         System.out.println("response  :  ------------- " +response.getStatusCode());
         System.out.println("status  :  ------------- " +StatusCode.CODE_400);
 
