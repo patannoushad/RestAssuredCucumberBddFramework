@@ -6,7 +6,6 @@ import com.spotify.oauth2.pojo.Error;
 import com.spotify.oauth2.pojo.Playlist;
 
 import utils.ConfigReader;
-import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
@@ -25,7 +24,7 @@ public class PlaylistTests extends BaseTest {
                 build();
     }
 
-    @Test(description = "should be able to create a playlist")
+    @Test
     public void ShouldBeAbleToCreateAPlaylist(){
         //1. post new request
         Playlist requestPlaylist = playlistBuilder(generateName(), generateDescription(), false);
@@ -55,7 +54,6 @@ public class PlaylistTests extends BaseTest {
         assertThat(response.statusCode(), equalTo(StatusCode.CODE_200.code));
     }
 
-    @Story("Create a playlist story")
     @Test
     public void ShouldNotBeAbleToCreateAPlaylistWithName(){
         //4. post new request
@@ -66,7 +64,6 @@ public class PlaylistTests extends BaseTest {
         assertThat(response.as(Error.class).getError().getMessage(),equalTo(StatusCode.CODE_400.msg));
     }
 
-    @Story("Create a playlist story")
     @Test
     public void ShouldNotBeAbleToCreateAPlaylistWithExpiredToken(){
         //5. post new request
