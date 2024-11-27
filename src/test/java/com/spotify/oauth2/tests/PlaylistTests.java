@@ -5,7 +5,7 @@ import com.spotify.oauth2.api.applicationApi.PlaylistApi;
 import com.spotify.oauth2.pojo.Error;
 import com.spotify.oauth2.pojo.Playlist;
 
-import utils.DataLoader;
+import utils.ConfigReader;
 import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
@@ -40,7 +40,7 @@ public class PlaylistTests extends BaseTest {
     public void ShouldBeAbleToGetAPlaylist(){
         //2. get new request
         Playlist requestPlaylist = playlistBuilder("Updated Playlist Name", "Updated playlist description", true);
-        Response response = PlaylistApi.get(DataLoader.getInstance().getGetPlaylistId());
+        Response response = PlaylistApi.get(ConfigReader.getPropertyValue("get_playlist_id"));
         assertThat(response.statusCode(), equalTo(StatusCode.CODE_200.code));
         assertThat(response.as(Playlist.class).getName(),equalTo(requestPlaylist.getName()));
         assertThat(response.as(Playlist.class).getDescription(), equalTo(requestPlaylist.getDescription()));
@@ -51,7 +51,7 @@ public class PlaylistTests extends BaseTest {
     public void ShouldBeAbleToUpdateAPlaylist(){
         //3. update new request
         Playlist requestPlaylist = playlistBuilder(generateName(), generateDescription(), false);
-        Response response = PlaylistApi.update(DataLoader.getInstance().getUpdatePlaylistId(), requestPlaylist);
+        Response response = PlaylistApi.update(ConfigReader.getPropertyValue("update_playlist_id"), requestPlaylist);
         assertThat(response.statusCode(), equalTo(StatusCode.CODE_200.code));
     }
 
@@ -77,21 +77,14 @@ public class PlaylistTests extends BaseTest {
         assertThat(response.as(Error.class).getError().getMessage(),equalTo(StatusCode.CODE_401.msg));
     }
 
-//    @Step
-//    public void assertPlaylistEqual(Playlist responsePlaylist, Playlist requestPlaylist){
-//        assertThat(responsePlaylist.getName(), equalTo(requestPlaylist.getName()));
-//        assertThat(responsePlaylist.getDescription(), equalTo(requestPlaylist.getDescription()));
-//        assertThat(responsePlaylist.get_public(), equalTo(requestPlaylist.get_public()));
-//    }
-//
-//    @Step
-//    public void assertStatusCode(int actualStatusCode, StatusCode statusCode){
-//        assertThat(actualStatusCode, equalTo(statusCode.code));
-//    }
-//
-//    @Step
-//    public void assertError(Error responseErr, StatusCode statusCode){
-//        assertThat(responseErr.getError().getStatus(), equalTo(statusCode.code));
-//        assertThat(responseErr.getError().getMessage(), equalTo(statusCode.msg));
-//    }
+    @Test
+    public void addItemsToTheTrack(){
+//        6. add items to track
+//        Playlist requestPlaylist = playlistBuilder(generateName(), generateDescription(), false);
+//        Response response = PlaylistApi.postItemsPlaylist(requestPlaylist);
+//        assertThat(response.statusCode(), equalTo(StatusCode.CODE_201.code));
+//        assertThat(response.as(Playlist.class).getName(),equalTo(requestPlaylist.getName()));
+//        assertThat(response.as(Playlist.class).getDescription(), equalTo(requestPlaylist.getDescription()));
+//        assertThat(response.as(Playlist.class).get_public(), equalTo(requestPlaylist.get_public()));
+    }
 }
